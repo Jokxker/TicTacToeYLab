@@ -1,7 +1,9 @@
-import com.aleks.controller.Controller;
-import com.aleks.controller.ApiController;
+package com.aleks;
 
-public class TestGet {
+import com.aleks.controller.ApiController;
+import com.aleks.controller.Controller;
+
+public class RunApi {
     public static void main(String[] args) {
         Controller controller = new ApiController();
         controller.start();

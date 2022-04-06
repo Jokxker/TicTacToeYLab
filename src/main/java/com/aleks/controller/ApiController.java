@@ -4,11 +4,10 @@ import com.aleks.model.Player;
 import com.aleks.repository.GameplayRepository;
 import com.aleks.repository.PlayerRepository;
 import com.aleks.services.Game;
+import com.aleks.utils.AdapterField;
 import com.aleks.utils.StandardResponse;
 import com.aleks.utils.StatusResponse;
 import com.google.gson.Gson;
-
-import java.util.Arrays;
 
 import static spark.Spark.*;
 
@@ -46,10 +45,9 @@ public class ApiController extends Controller {
         put("/gameplay", (request, response) -> { // Редактируем игровое поле
             dbH2.create();
             System.out.println(dbH2.getPlayerX());
-//            dbH2.delete();
             String[] winOrDraw = new Game().changeField(request.queryParams("step"),
-                    request.queryParams("name").equals(dbH2.getPlayerX().getName()) ? dbH2.getPlayerX() : dbH2.getPlayer0(), dbH2.getArray().toCharArray());
-            System.out.println(Arrays.toString(winOrDraw));
+                    request.queryParams("name").equals(dbH2.getPlayerX().getName()) ?
+                            dbH2.getPlayerX() : dbH2.getPlayer0(), AdapterField.adapterField(dbH2.getArray().toCharArray()));
             dbH2.setArray(winOrDraw[0]);
             dbH2.add();
             if (winOrDraw[1] == null) {
@@ -58,6 +56,11 @@ public class ApiController extends Controller {
                 if (!winOrDraw[1].equals("Draw!")) new PlayerRepository().addPoint(winOrDraw[1]);
                 return new Gson().toJson(new StandardResponse(StatusResponse.OK, new Gson().toJsonTree(winOrDraw)));
             }
+        });
+        delete("/gameplay", (request, response) -> { // Удаляем таблицу players
+            dbH2 = new PlayerRepository();
+            dbH2.delete();
+            return new Gson().toJson(new StandardResponse(StatusResponse.OK));
         });
         after((req, res) -> res.type(JSON_MIME_TYPE));
     }

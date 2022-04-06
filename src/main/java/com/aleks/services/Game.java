@@ -2,19 +2,9 @@ package com.aleks.services;
 
 import com.aleks.model.Player;
 
-import java.util.stream.IntStream;
-
 public class Game {
-    public String[] changeField(String step, Player player, char[] field) { // Записываем ходы и выявляем победителя
+    public String[] changeField(String step, Player player, char[][] fieldGame) { // Записываем ходы и выявляем победителя
         String[] res = new String[2];
-        int m = 3;
-        int n = 3;
-        int[][] fieldGameRes = IntStream.range(0, m)
-                .mapToObj(i -> IntStream.range(0, n)
-                        .map(j -> field[(j + i * n) % field.length])
-                        .toArray())
-                .toArray(int[][]::new);
-
         int x = 0;
         int y = 0;
         switch (step) {
@@ -39,12 +29,6 @@ public class Game {
                 x = 2;
             }
         }
-        char[][] fieldGame = new char[3][3];
-        for (int i = 0; i < fieldGameRes.length; i++) {
-            for (int j = 0; j < fieldGameRes.length; j++) {
-                fieldGame[i][j] = (char) fieldGameRes[i][j];
-            }
-        }
         fieldGame[y][x] = player.getSymbol();
         int col = 0;
         int row = 0;
@@ -59,6 +43,7 @@ public class Game {
         if (row == 3 || col == 3 || diag == 3 || rdiag == 3) {
             res[1] = player.getName();
         }
+        char[] field = new char[9];
         int ind = 0;
         for (char[] chars : fieldGame) {
             for (int j = 0; j < fieldGame.length; j++) {
