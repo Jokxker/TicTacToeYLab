@@ -5,7 +5,6 @@ import com.aleks.model.Player;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -22,8 +21,8 @@ public abstract class StorageH2 {
     private String userName;
     private String password;
 
-    Player playerX;
-    Player player0;
+    public static Player playerX;
+    public static Player player0;
     final Map<String, Integer> rating = new HashMap<>();
     String array = "iiiiiiiii";
 
@@ -49,22 +48,6 @@ public abstract class StorageH2 {
     public abstract void show();
 
     public abstract void delete();
-
-    public void setPlayerX(Player playerX) {
-        this.playerX = playerX;
-    }
-
-    public Player getPlayerX() {
-        return playerX;
-    }
-
-    public void setPlayer0(Player player0) {
-        this.player0 = player0;
-    }
-
-    public Player getPlayer0() {
-        return player0;
-    }
 
     public Map<String, Integer> getRating() {
         return rating;

@@ -8,7 +8,7 @@ public class TestGame {
         Player player = new Player("aleks", '0', "1");
         char[] field = new char[]{'X', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i'};
         String expected = "Xiii0iiii";
-        String[] res = new Game().changeField(step, player, AdapterField.adapterField(field));
+        String[] res = Game.changeField(step, player, AdapterField.adapterField(field));
         assertEquals(expected, res[0]);
     }
 }

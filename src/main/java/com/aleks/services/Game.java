@@ -3,7 +3,7 @@ package com.aleks.services;
 import com.aleks.model.Player;
 
 public class Game {
-    public String[] changeField(String step, Player player, char[][] fieldGame) { // Записываем ходы и выявляем победителя
+    public static String[] changeField(String step, Player player, char[][] fieldGame) { // Записываем ходы и выявляем победителя
         String[] res = new String[2];
         int x = 0;
         int y = 0;

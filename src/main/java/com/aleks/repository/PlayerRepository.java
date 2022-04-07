@@ -15,6 +15,7 @@ public class PlayerRepository extends StorageH2 {
             exc.printStackTrace();
         }
     }
+
     @Override
     public void add() {
         String query = "INSERT INTO players (id, name, points) VALUES (?, ?, ?)";
@@ -48,6 +49,7 @@ public class PlayerRepository extends StorageH2 {
             exc.printStackTrace();
         }
     }
+
     public void addPoint(String winner) {
         System.out.println(winner);
         int id = 0;
@@ -65,11 +67,12 @@ public class PlayerRepository extends StorageH2 {
             exc.printStackTrace();
         }
         try (Connection conn = connection()){
-            conn.createStatement().executeUpdate("update players set points=" + String.valueOf(i + 1) + "where id=" + id);
+            conn.createStatement().executeUpdate("update players set points=" + (i + 1) + "where id=" + id);
         } catch (SQLException exc) {
             exc.printStackTrace();
         }
     }
+
     @Override
     public void show() {
         String query = "SELECT * FROM players";
@@ -83,6 +86,7 @@ public class PlayerRepository extends StorageH2 {
             exc.printStackTrace();
         }
     }
+
     @Override
     public void delete() {
         String query = "drop table players";
